@@ -5,7 +5,7 @@ import { Container } from 'typedi';
 //----------Configurations----------
 import express from 'express';
 import * as dotenv from 'dotenv';
-// import { DataBase } from '';
+import { DataBase } from './config/DataBase';
 
 //------------Midlewares-----------
 import compression from 'compression';
@@ -50,10 +50,10 @@ export class Server {
         this.app.use(cors());
     }
 
-    private config() {
+    private async config() {
         dotenv.config();
         this.app.set('port', process.env.PORT || 3000);
-        // DataBase.configDataBase();
+        await DataBase.configDataBase();
         this.addMiddlewares();
         this.addRouters()
     }
