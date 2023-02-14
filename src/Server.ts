@@ -1,30 +1,67 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import { DataBase } from './DataBase';
-import { Middlewares } from './Middlewares';
-import { Routes } from './Routes';
+//-------Dependency Injection-----
+import 'reflect-metadata';
+import { Container } from 'typedi';
 
-class Server{
+//----------Configurations----------
+import express from 'express';
+import * as dotenv from 'dotenv';
+// import { DataBase } from '';
+
+//------------Midlewares-----------
+import compression from 'compression';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+
+//------------Controllers--------
+import { IController } from './utils/interfaces/IController';
+import { IUrlController } from './utils/interfaces/IUrlController';
+
+
+
+
+
+export class Server {
+
     private app: express.Application;
-    
-    constructor(){
+
+    private urlsControllers: IUrlController[] = [
+        // { url: '/api/user', controller: Container.get<IController>(UserController) }
+    ];
+
+    constructor() {
         this.app = express();
         this.config();
     }
 
-    private config(){
-        dotenv.config(); //Create a .env file
-        this.app.set('port', process.env.PORT || 5000);
-        Middlewares.addMiddlewares(this.app);
-        DataBase.configDataBase();
-        Routes.addRoutes(this.app);
+    //------------------------Config--------------------
+    private addRouters() {
+        this.app.get('/', (req, res) => res.send('WORKS!'));
+        this.urlsControllers.forEach(urlController => {
+            this.app.use(urlController.url, urlController.controller.getRouter())
+        });
     }
 
+    private addMiddlewares() {
+        this.app.use(morgan('dev'));
+        this.app.use(helmet());
+        this.app.use(express.json());
+        this.app.use(compression());
+        this.app.use(cors());
+    }
+
+    private config() {
+        dotenv.config();
+        this.app.set('port', process.env.PORT || 3000);
+        // DataBase.configDataBase();
+        this.addMiddlewares();
+        this.addRouters()
+    }
+
+
+    //-------------Start----------------
     public start() {
         let port = this.app.get('port');
         this.app.listen(port, () => console.log('Server on port ', port))
     }
 }
-
-const server = new Server();
-server.start();
