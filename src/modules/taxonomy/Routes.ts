@@ -54,6 +54,14 @@ export class TaxonomyController implements IController {
     this.router.get("/genero", async (req: Request, res: Response) => {
       GeneroController.getAllGeneros(req, res);
     });
+
+    this.router.get(
+      "/genero/by-familia",
+      GeneroMiddlewares.getAllGenerosByFamiliaMiddleware,
+      async (req: Request, res: Response) => {
+        GeneroController.getAllGenerosByFamilia(req, res);
+      }
+    );
   }
 
   public getRouter(): Router {
