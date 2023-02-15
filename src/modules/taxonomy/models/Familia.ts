@@ -35,10 +35,18 @@ Familia.init(
       },
       beforeUpdate: (familia, options) => {
         familia.familiaNombre = familia.familiaNombre.toUpperCase();
-        console.log('aaaaaaaaaaaaaaaa')
       },
     },
     tableName: "Familias",
+    paranoid: true,
     sequelize,
   }
 );
+
+Familia.sync({ alter: true })
+  .catch((e) => {
+    console.log(e.message);
+  })
+  .then(() => {
+    console.log("Tabla Familia actualizada");
+  });
