@@ -13,7 +13,7 @@ import morgan from "morgan";
 //------------Controllers--------
 import { IController } from "./utils/interfaces/IController";
 import { IUrlController } from "./utils/interfaces/IUrlController";
-import { TaxonomyController } from "./modules/taxonomy/TaxonomyController";
+import { TaxonomyController } from "./modules/taxonomy/Routes";
 
 export class Server {
   private app: express.Application;

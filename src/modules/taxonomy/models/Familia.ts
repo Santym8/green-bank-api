@@ -8,8 +8,6 @@ import {
   DataTypes,
 } from "sequelize";
 
-
-
 export class Familia extends Model<
   InferAttributes<Familia>,
   InferCreationAttributes<Familia>
@@ -31,6 +29,15 @@ Familia.init(
     },
   },
   {
+    hooks: {
+      beforeCreate: (familia, options) => {
+        familia.familiaNombre = familia.familiaNombre.toUpperCase();
+      },
+      beforeUpdate: (familia, options) => {
+        familia.familiaNombre = familia.familiaNombre.toUpperCase();
+        console.log('aaaaaaaaaaaaaaaa')
+      },
+    },
     tableName: "Familias",
     sequelize,
   }
