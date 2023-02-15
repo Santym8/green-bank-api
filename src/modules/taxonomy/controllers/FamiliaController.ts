@@ -29,9 +29,7 @@ export class FamiliaController {
   public static async deleteFamilia(req: Request, res: Response) {
     const id: number = Number(req.params.id);
 
-    const familia = await Familia.findOne({
-      where: { familiaId: id },
-    })
+    const familia = await Familia.findByPk(id)
       .catch((e) => {
         return res.status(400).json({ error: e.message });
       })
@@ -48,9 +46,7 @@ export class FamiliaController {
   public static async putFamilia(req: Request, res: Response) {
     const id: number = Number(req.params.id);
 
-    const familia = await Familia.findOne({
-      where: { familiaId: id },
-    })
+    const familia = await Familia.findByPk(id)
       .catch((e) => {
         return res.status(400).json({ error: e.message });
       })
