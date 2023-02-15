@@ -1,5 +1,4 @@
 import { sequelize } from "../../../config/DataBase";
-const { Sequelize } = require("sequelize");
 import {
   Model,
   InferAttributes,

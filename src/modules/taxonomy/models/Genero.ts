@@ -5,16 +5,17 @@ import {
   InferCreationAttributes,
   CreationOptional,
   DataTypes,
+  ForeignKey,
 } from "sequelize";
+import { Familia } from "./Familia";
 
-// const sequelize = DataBase.sequelize;
-
-class Genero extends Model<
+export class Genero extends Model<
   InferAttributes<Genero>,
   InferCreationAttributes<Genero>
 > {
   declare generoId: CreationOptional<number>;
   declare generoNombre: string;
+  declare familiaId: ForeignKey<Familia["familiaId"]>;
 }
 
 Genero.init(
@@ -30,7 +31,29 @@ Genero.init(
     },
   },
   {
+    hooks: {
+      beforeCreate: (genero, options) => {
+        genero.generoNombre = genero.generoNombre.toUpperCase();
+      },
+      beforeUpdate: (genero, options) => {
+        genero.generoNombre = genero.generoNombre.toUpperCase();
+      },
+    },
     tableName: "Generos",
-    sequelize
+    paranoid: true,
+    sequelize,
   }
 );
+
+Familia.hasMany(Genero);
+Genero.belongsTo(Familia, { foreignKey: "familiaId" });
+
+// Genero.belongsTo(Familia);
+
+Genero.sync({ alter: true })
+  .catch((e) => {
+    console.log(e.message);
+  })
+  .then(() => {
+    console.log("Tabla Genero actualizada");
+  });
