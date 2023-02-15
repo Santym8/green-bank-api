@@ -10,14 +10,9 @@ export class GeneroMiddlewares {
     next();
   };
 
-  // public static deleteGeneroMiddleware = [
-  //   param("id").notEmpty().isNumeric(),
-  //   GeneroMiddlewares.grantAccess,
-  // ];
-
   public static createGeneroMiddleware = [
     body("nombre").notEmpty().isLength({ min: 5, max: 50 }),
-    body("idFamilia").notEmpty().isNumeric(),
+    body("familiaId").notEmpty().isNumeric(),
     GeneroMiddlewares.grantAccess,
   ];
 
@@ -25,6 +20,12 @@ export class GeneroMiddlewares {
     query("familiaId").notEmpty().isNumeric(),
     GeneroMiddlewares.grantAccess,
   ];
+
+  public static deleteGeneroMiddleware = [
+    param("id").notEmpty().isNumeric(),
+    GeneroMiddlewares.grantAccess,
+  ];
+
 
   // public static updateGeneroMiddleware = [
   //   param("id").notEmpty().isNumeric(),

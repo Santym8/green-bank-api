@@ -62,6 +62,14 @@ export class TaxonomyController implements IController {
         GeneroController.getAllGenerosByFamilia(req, res);
       }
     );
+
+    this.router.delete(
+      "/genero/:id",
+      GeneroMiddlewares.deleteGeneroMiddleware,
+      async (req: Request, res: Response) => {
+        GeneroController.deleteGenero(req, res);
+      }
+    );
   }
 
   public getRouter(): Router {

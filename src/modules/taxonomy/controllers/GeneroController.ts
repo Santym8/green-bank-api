@@ -43,4 +43,17 @@ export class GeneroController {
       return res.status(400).json({ error: error.message });
     }
   }
+
+  public static async deleteGenero(req: Request, res: Response) {
+    try {
+      const genero = await Genero.findByPk(req.params.id);
+      if (!genero)
+        return res.status(400).json({ error: "Genero no encontrado" });
+      genero.destroy();
+      await genero.save();
+      return res.status(200).json({ message: "Genero eliminado con exito" });
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
 }
