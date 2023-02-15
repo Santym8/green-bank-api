@@ -46,7 +46,7 @@ export class TaxonomyController implements IController {
 
     this.router.post(
       "/genero",
-      GeneroMiddlewares.createGeneroMiddleware,
+      GeneroMiddlewares.createOrUpdateGeneroMiddleware,
       async (req: Request, res: Response) =>
         GeneroController.postGenero(req, res)
     );
@@ -64,10 +64,18 @@ export class TaxonomyController implements IController {
     );
 
     this.router.delete(
-      "/genero/:id",
+      "/genero/:generoId",
       GeneroMiddlewares.deleteGeneroMiddleware,
       async (req: Request, res: Response) => {
         GeneroController.deleteGenero(req, res);
+      }
+    );
+
+    this.router.put(
+      "/genero/:generoId",
+      GeneroMiddlewares.createOrUpdateGeneroMiddleware,
+      async (req: Request, res: Response) => {
+        GeneroController.updateGenero(req, res);
       }
     );
   }
