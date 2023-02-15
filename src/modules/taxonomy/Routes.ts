@@ -50,6 +50,10 @@ export class TaxonomyController implements IController {
       async (req: Request, res: Response) =>
         GeneroController.postGenero(req, res)
     );
+
+    this.router.get("/genero", async (req: Request, res: Response) => {
+      GeneroController.getAllGeneros(req, res);
+    });
   }
 
   public getRouter(): Router {
