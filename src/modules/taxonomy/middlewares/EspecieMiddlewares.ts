@@ -10,7 +10,14 @@ export class EspecieMiddlewares {
     next();
   };
 
-  public static createOrUpdateEspecieMiddleware = [
+  public static createEspecieMiddleware = [
+    body("especieNombre").notEmpty().isLength({ min: 5, max: 50 }),
+    body("generoId").notEmpty().isNumeric(),
+    EspecieMiddlewares.grantAccess,
+  ];
+
+  public static updateEspecieMiddleware = [
+    param("especieId").notEmpty().isNumeric(),
     body("especieNombre").notEmpty().isLength({ min: 5, max: 50 }),
     body("generoId").notEmpty().isNumeric(),
     EspecieMiddlewares.grantAccess,
@@ -26,5 +33,4 @@ export class EspecieMiddlewares {
     param("especieId").notEmpty().isNumeric(),
     EspecieMiddlewares.grantAccess,
   ];
-
 }

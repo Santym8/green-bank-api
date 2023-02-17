@@ -100,7 +100,7 @@ export class TaxonomyController implements IController {
     // -----------------------------Especie---------------------------
     this.router.post(
       "/especie",
-      EspecieMiddlewares.createOrUpdateEspecieMiddleware,
+      EspecieMiddlewares.createEspecieMiddleware,
       async (req: Request, res: Response) => {
         EspecieController.postEspecie(req, res);
       }
@@ -132,7 +132,7 @@ export class TaxonomyController implements IController {
 
     this.router.put(
       "/especie/:especieId",
-      EspecieMiddlewares.createOrUpdateEspecieMiddleware,
+      EspecieMiddlewares.updateEspecieMiddleware,
       async (req: Request, res: Response) => {
         EspecieController.updateEspecie(req, res);
       }
