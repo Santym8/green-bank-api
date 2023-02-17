@@ -41,12 +41,19 @@ Genero.init(
     },
     tableName: "Generos",
     paranoid: true,
+    freezeTableName: true,
     sequelize,
   }
 );
 
-Familia.hasMany(Genero);
-Genero.belongsTo(Familia, { foreignKey: "familiaId" });
+Familia.hasMany(Genero, {
+  foreignKey: "familiaId",
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+Genero.belongsTo(Familia, {
+  foreignKey: "familiaId",
+});
 
 // Genero.belongsTo(Familia);
 

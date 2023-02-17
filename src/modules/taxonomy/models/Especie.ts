@@ -40,13 +40,20 @@ Especie.init(
       },
     },
     tableName: "Especies",
+    freezeTableName: true,
     paranoid: true,
     sequelize,
   }
 );
 
-Genero.hasMany(Especie);
-Especie.belongsTo(Genero, { foreignKey: "generoId" });
+Genero.hasMany(Especie, {
+  foreignKey: "generoId",
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+Especie.belongsTo(Genero, {
+  foreignKey: "generoId",
+});
 
 Especie.sync({ alter: true })
   .catch((e) => {

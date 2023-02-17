@@ -41,13 +41,20 @@ NombreLocal.init(
       },
     },
     tableName: "NombresLocales",
+    freezeTableName: true,
     paranoid: true,
     sequelize,
   }
 );
 
-Subespecie.hasMany(NombreLocal);
-NombreLocal.belongsTo(Subespecie, { foreignKey: "subespecieId" });
+Subespecie.hasMany(NombreLocal, {
+  foreignKey: "subespecieId",
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+NombreLocal.belongsTo(Subespecie, {
+  foreignKey: "subespecieId",
+});
 
 NombreLocal.sync({ alter: true })
   .catch((e) => {

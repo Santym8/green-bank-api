@@ -37,6 +37,7 @@ Familia.init(
       },
     },
     tableName: "Familias",
+    freezeTableName: true,
     paranoid: true,
     sequelize,
   }
