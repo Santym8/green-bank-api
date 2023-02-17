@@ -1,8 +1,10 @@
 import { Router, Request, Response } from "express";
 import { IController } from "../../utils/interfaces/IController";
+import { EspecieController } from "./controllers/EspecieController";
 // Controllers
 import { FamiliaController } from "./controllers/FamiliaController";
 import { GeneroController } from "./controllers/GeneroController";
+import { EspecieMiddlewares } from "./middlewares/EspecieMiddlewares";
 // Middlewares
 import { FamiliaMiddlewares } from "./middlewares/FamiliaMiddlewares";
 import { GeneroMiddlewares } from "./middlewares/GeneroMiddlewares";
@@ -72,6 +74,47 @@ export class TaxonomyController implements IController {
       GeneroMiddlewares.createOrUpdateGeneroMiddleware,
       async (req: Request, res: Response) => {
         GeneroController.updateGenero(req, res);
+      }
+    );
+
+    // -----------------------------Especie---------------------------
+    this.router.post(
+      "/especie",
+      EspecieMiddlewares.createOrUpdateEspecieMiddleware,
+      async (req: Request, res: Response) => {
+        EspecieController.postEspecie(req, res);
+      }
+    );
+
+    this.router.get(
+      "/especie",
+      EspecieMiddlewares.getEspecieMiddleware,
+      async (req: Request, res: Response) => {
+        EspecieController.getEspecies(req, res);
+      }
+    );
+
+    this.router.get(
+      "/especie/:especieId",
+      EspecieMiddlewares.getEspecieByOrDeleteIdMiddleware,
+      async (req: Request, res: Response) => {
+        EspecieController.getEspeciesById(req, res);
+      }
+    );
+
+    this.router.delete(
+      "/especie/:especieId",
+      EspecieMiddlewares.getEspecieByOrDeleteIdMiddleware,
+      async (req: Request, res: Response) => {
+        EspecieController.deleteEspecie(req, res);
+      }
+    );
+
+    this.router.put(
+      "/especie/:especieId",
+      EspecieMiddlewares.createOrUpdateEspecieMiddleware,
+      async (req: Request, res: Response) => {
+        EspecieController.updateEspecie(req, res);
       }
     );
   }
