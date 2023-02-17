@@ -4,11 +4,13 @@ import { EspecieController } from "./controllers/EspecieController";
 // Controllers
 import { FamiliaController } from "./controllers/FamiliaController";
 import { GeneroController } from "./controllers/GeneroController";
+import { NombreLocalController } from "./controllers/NombreLocalController";
 import { SubespecieController } from "./controllers/SubespecieController";
 import { EspecieMiddlewares } from "./middlewares/EspecieMiddlewares";
 // Middlewares
 import { FamiliaMiddlewares } from "./middlewares/FamiliaMiddlewares";
 import { GeneroMiddlewares } from "./middlewares/GeneroMiddlewares";
+import { NombreLocalMiddlewares } from "./middlewares/NombreLocalMiddlewares";
 import { SubespecieMiddlewares } from "./middlewares/SubespecieMiddlewares";
 export class TaxonomyController implements IController {
   private router: Router;
@@ -174,6 +176,47 @@ export class TaxonomyController implements IController {
       SubespecieMiddlewares.updateSubespecieMiddleware,
       async (req: Request, res: Response) => {
         SubespecieController.updateSubespecie(req, res);
+      }
+    );
+
+    // -----------------------------Nombre Local---------------------------
+    this.router.post(
+      "/nombre-local",
+      NombreLocalMiddlewares.createNombreLocalMiddleware,
+      async (req: Request, res: Response) => {
+        NombreLocalController.postNombreLocal(req, res);
+      }
+    );
+
+    this.router.get(
+      "/nombre-local/:nombreLocalId",
+      NombreLocalMiddlewares.getOrDeleteNombreLocalByIdMiddleware,
+      async (req: Request, res: Response) => {
+        NombreLocalController.getNombreLocalById(req, res);
+      }
+    );
+
+    this.router.get(
+      "/nombre-local",
+      NombreLocalMiddlewares.getNombreLocalMiddleware,
+      async (req: Request, res: Response) => {
+        NombreLocalController.getNombreLocal(req, res);
+      }
+    );
+
+    this.router.delete(
+      "/nombre-local/:nombreLocalId",
+      NombreLocalMiddlewares.getOrDeleteNombreLocalByIdMiddleware,
+      async (req: Request, res: Response) => {
+        NombreLocalController.deleteNombreLocal(req, res);
+      }
+    );
+
+    this.router.put(
+      "/nombre-local/:nombreLocalId",
+      NombreLocalMiddlewares.updateNombreLocalMiddleware,
+      async (req: Request, res: Response) => {
+        NombreLocalController.updateNombreLocal(req, res);
       }
     );
   }
