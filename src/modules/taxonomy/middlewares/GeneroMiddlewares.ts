@@ -16,8 +16,8 @@ export class GeneroMiddlewares {
     GeneroMiddlewares.grantAccess,
   ];
 
-  public static getAllGenerosByFamiliaMiddleware = [
-    query("familiaId").notEmpty().isNumeric(),
+  public static getGenerosMiddleware = [
+    query("familiaId").isNumeric().optional({ nullable: true }),
     GeneroMiddlewares.grantAccess,
   ];
 
@@ -26,10 +26,9 @@ export class GeneroMiddlewares {
     GeneroMiddlewares.grantAccess,
   ];
 
-
-  // public static updateGeneroMiddleware = [
-  //   param("id").notEmpty().isNumeric(),
-  //   body("nombre").notEmpty().isLength({ min: 5, max: 50 }),
-  //   GeneroMiddlewares.grantAccess,
-  // ];
+  public static updateGeneroMiddleware = [
+    param("id").notEmpty().isNumeric(),
+    body("nombre").notEmpty().isLength({ min: 5, max: 50 }),
+    GeneroMiddlewares.grantAccess,
+  ];
 }

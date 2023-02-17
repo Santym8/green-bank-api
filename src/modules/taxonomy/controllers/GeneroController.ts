@@ -16,26 +16,15 @@ export class GeneroController {
     }
   }
 
-  public static async getAllGeneros(req: Request, res: Response) {
+  public static async getGeneros(req: Request, res: Response) {
     try {
+      const familiaId = req.query.familiaId;
       const generos = await Genero.findAll({
-        attributes: ["generoId", "generoNombre"],
-        include: { model: Familia, attributes: ["familiaId", "familiaNombre"] },
-      });
-      return res.status(200).json({ data: generos });
-    } catch (error: any) {
-      return res.status(400).json({ error: error.message });
-    }
-  }
-
-  public static async getAllGenerosByFamilia(req: Request, res: Response) {
-    try {
-      const familiaId: number = Number(req.query.familiaId!);
-
-      const generos = await Genero.findAll({
-        where: {
-          familiaId: familiaId,
-        },
+        where: familiaId
+          ? {
+              familiaId: Number(familiaId),
+            }
+          : {},
         attributes: ["generoId", "generoNombre"],
         include: { model: Familia, attributes: ["familiaId", "familiaNombre"] },
       });
