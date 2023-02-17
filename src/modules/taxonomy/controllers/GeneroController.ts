@@ -34,6 +34,19 @@ export class GeneroController {
     }
   }
 
+  public static async getGeneroById(req: Request, res: Response) {
+    try {
+      const { generoId } = req.params;
+      const generos = await Genero.findByPk(generoId, {
+        attributes: ["generoId", "generoNombre"],
+        include: { model: Familia, attributes: ["familiaId", "familiaNombre"] },
+      });
+      return res.status(200).json({ data: generos });
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
   public static async deleteGenero(req: Request, res: Response) {
     try {
       const genero = await Genero.findByPk(req.params.generoId);
