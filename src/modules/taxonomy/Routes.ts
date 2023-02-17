@@ -4,10 +4,12 @@ import { EspecieController } from "./controllers/EspecieController";
 // Controllers
 import { FamiliaController } from "./controllers/FamiliaController";
 import { GeneroController } from "./controllers/GeneroController";
+import { SubespecieController } from "./controllers/SubespecieController";
 import { EspecieMiddlewares } from "./middlewares/EspecieMiddlewares";
 // Middlewares
 import { FamiliaMiddlewares } from "./middlewares/FamiliaMiddlewares";
 import { GeneroMiddlewares } from "./middlewares/GeneroMiddlewares";
+import { SubespecieMiddlewares } from "./middlewares/SubespecieMiddlewares";
 export class TaxonomyController implements IController {
   private router: Router;
   constructor() {
@@ -131,6 +133,47 @@ export class TaxonomyController implements IController {
       EspecieMiddlewares.createOrUpdateEspecieMiddleware,
       async (req: Request, res: Response) => {
         EspecieController.updateEspecie(req, res);
+      }
+    );
+
+    // -----------------------------Subespecie---------------------------
+    this.router.post(
+      "/subespecie",
+      SubespecieMiddlewares.createSubespecieMiddleware,
+      async (req: Request, res: Response) => {
+        SubespecieController.postSubespecie(req, res);
+      }
+    );
+
+    this.router.get(
+      "/subespecie/:subespecieId",
+      SubespecieMiddlewares.getOrDeleteSubespecieByIdMiddleware,
+      async (req: Request, res: Response) => {
+        SubespecieController.getSubespeciesById(req, res);
+      }
+    );
+
+    this.router.get(
+      "/subespecie",
+      SubespecieMiddlewares.getSubespecieMiddleware,
+      async (req: Request, res: Response) => {
+        SubespecieController.getSubespecies(req, res);
+      }
+    );
+
+    this.router.delete(
+      "/subespecie/:subespecieId",
+      SubespecieMiddlewares.getOrDeleteSubespecieByIdMiddleware,
+      async (req: Request, res: Response) => {
+        SubespecieController.deleteSubespecie(req, res);
+      }
+    );
+
+    this.router.put(
+      "/subespecie/:subespecieId",
+      SubespecieMiddlewares.updateSubespecieMiddleware,
+      async (req: Request, res: Response) => {
+        SubespecieController.updateSubespecie(req, res);
       }
     );
   }
