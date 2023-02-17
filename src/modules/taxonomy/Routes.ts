@@ -26,11 +26,19 @@ export class TaxonomyController implements IController {
     );
 
     this.router.get("/familia", async (req: Request, res: Response) => {
-      FamiliaController.getAllFamilia(req, res);
+      FamiliaController.getFamilia(req, res);
     });
 
+    this.router.get(
+      "/familia/:familiaId",
+      FamiliaMiddlewares.getFamiliaByIdMiddleware,
+      async (req: Request, res: Response) => {
+        FamiliaController.getFamiliaById(req, res);
+      }
+    );
+
     this.router.delete(
-      "/familia/:id",
+      "/familia/:familiaId",
       FamiliaMiddlewares.deleteFamiliaMiddleware,
       async (req: Request, res: Response) => {
         FamiliaController.deleteFamilia(req, res);
@@ -38,7 +46,7 @@ export class TaxonomyController implements IController {
     );
 
     this.router.put(
-      "/familia/:id",
+      "/familia/:familiaId",
       FamiliaMiddlewares.updateFamiliaMiddleware,
       async (req: Request, res: Response) =>
         FamiliaController.putFamilia(req, res)

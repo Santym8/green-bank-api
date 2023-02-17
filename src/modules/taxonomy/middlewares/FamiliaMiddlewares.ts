@@ -11,18 +11,23 @@ export class FamiliaMiddlewares {
   };
 
   public static deleteFamiliaMiddleware = [
-    param("id").notEmpty().isNumeric(),
+    param("familiaId").notEmpty().isNumeric(),
     FamiliaMiddlewares.grantAccess,
   ];
 
   public static createFamiliaMiddleware = [
-    body("nombre").notEmpty().isLength({ min: 5, max: 50 }),
+    body("familiaNombre").notEmpty().isLength({ min: 5, max: 50 }),
     FamiliaMiddlewares.grantAccess,
   ];
 
   public static updateFamiliaMiddleware = [
-    param("id").notEmpty().isNumeric(),
-    body("nombre").notEmpty().isLength({ min: 5, max: 50 }),
+    param("familiaId").notEmpty().isNumeric(),
+    body("familiaNombre").notEmpty().isLength({ min: 5, max: 50 }),
+    FamiliaMiddlewares.grantAccess,
+  ];
+
+  public static getFamiliaByIdMiddleware = [
+    param("familiaId").notEmpty().isNumeric(),
     FamiliaMiddlewares.grantAccess,
   ];
 }
