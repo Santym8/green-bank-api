@@ -1,4 +1,3 @@
-
 //----------Configurations----------
 import express from "express";
 import * as dotenv from "dotenv";
@@ -10,10 +9,11 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 
-//------------Controllers--------
+//------------Routes--------
 import { IController } from "./utils/interfaces/IController";
 import { IUrlController } from "./utils/interfaces/IUrlController";
-import { TaxonomyController } from "./modules/taxonomy/Routes";
+import { TaxonomyRoutes } from "./modules/taxonomy/Routes";
+import { UsuariosRoutes } from "./modules/usuarios/Routes";
 
 export class Server {
   private app: express.Application;
@@ -21,8 +21,12 @@ export class Server {
   private urlsControllers: IUrlController[] = [
     {
       url: "/api/taxonomia",
-      controller: new TaxonomyController(),
-    }
+      controller: new TaxonomyRoutes(),
+    },
+    {
+      url: "/api/usuario",
+      controller: new UsuariosRoutes(),
+    },
   ];
 
   constructor() {
@@ -59,7 +63,6 @@ export class Server {
     this.app.listen(port, () => console.log("Server on port ", port));
   }
 }
-
 
 const server = new Server();
 server.start();
