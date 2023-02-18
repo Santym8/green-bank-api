@@ -57,6 +57,22 @@ export class UsuariosRoutes implements IController {
         UsuarioController.updateUsuario(req, res);
       }
     );
+
+    this.router.put(
+      "/contrasenia/:usuarioId",
+      UsuarioMiddlewares.cambiarContraseniaUsuarioMiddleware,
+      async (req: Request, res: Response) => {
+        UsuarioController.cambiarContraseniaUsuario(req, res);
+      }
+    );
+
+    this.router.get(
+      "/login/autentificar",
+      UsuarioMiddlewares.loginMiddleware,
+      async (req: Request, res: Response) => {
+        UsuarioController.login(req, res);
+      }
+    );
   }
 
   public getRouter(): Router {

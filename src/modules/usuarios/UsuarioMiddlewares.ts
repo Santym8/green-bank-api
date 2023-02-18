@@ -41,4 +41,18 @@ export class UsuarioMiddlewares {
     body("rolId").notEmpty().isNumeric(),
     UsuarioMiddlewares.grantAccess,
   ];
+
+  public static cambiarContraseniaUsuarioMiddleware = [
+    param("usuarioId").notEmpty().isNumeric(),
+    body("usuarioContraseniaNueva").notEmpty().isLength({ min: 5, max: 50 }),
+    body("usuarioContraseniaActual").notEmpty().isLength({ min: 5, max: 50 }),
+    UsuarioMiddlewares.grantAccess,
+  ];
+
+  public static loginMiddleware = [
+    query("usuarioEmail").notEmpty().isEmail(),
+    query("usuarioContrasenia").notEmpty(),
+    UsuarioMiddlewares.grantAccess,
+  ];
+  
 }

@@ -157,4 +157,83 @@ export class UsuarioController {
       return res.status(400).json({ error: error.message });
     }
   }
+
+  public static async cambiarContraseniaUsuario(req: Request, res: Response) {
+    try {
+      const { usuarioContraseniaNueva, usuarioContraseniaActual } = req.body;
+      const { usuarioId } = req.params;
+
+      const usuario = await Usuario.findByPk(usuarioId);
+
+      if (!usuario)
+        return res.status(400).json({ error: "Usuario no encontrado" });
+
+      const coincideContrasenia = await bcrypt.compare(
+        usuarioContraseniaActual,
+        usuario.usuarioContrasenia
+      );
+
+      if (!coincideContrasenia)
+        return res.status(400).json({ error: "Contraseña incorrecta" });
+
+      const salt = await bcrypt.genSalt(10);
+      const usuarioContraseniaCifrada = await bcrypt.hash(
+        usuarioContraseniaNueva,
+        salt
+      );
+
+      await Usuario.update(
+        {
+          usuarioContrasenia: usuarioContraseniaCifrada,
+        },
+        { where: { usuarioId: usuarioId }, individualHooks: true }
+      );
+
+      return res
+        .status(200)
+        .json({ message: "Contraseña actualizada con exito" });
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  public static async login(req: Request, res: Response) {
+    try {
+      const { usuarioEmail, usuarioContrasenia } = req.query;
+
+      const usuario = await Usuario.findOne({
+        attributes: [
+          "usuarioId",
+          "usuarioNombres",
+          "usuarioApellidos",
+          "usuarioEmail",
+          "usuarioContrasenia",
+        ],
+        where: {
+          usuarioEmail: usuarioEmail as string,
+        },
+        include: {
+          model: Rol,
+          attributes: ["rolId", "rolNombre"],
+        },
+      });
+
+      if (!usuario)
+        return res.status(400).json({ error: "Usuario no encontrado" });
+
+      const coincideContrasenia = await bcrypt.compare(
+        usuarioContrasenia as string,
+        usuario.usuarioContrasenia
+      );
+
+      if (!coincideContrasenia)
+        return res.status(400).json({ error: "Contraseña incorrecta" });
+
+      usuario.usuarioContrasenia = "";
+
+      return res.status(200).json({ data: usuario });
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
 }
