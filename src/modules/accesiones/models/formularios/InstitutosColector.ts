@@ -7,15 +7,15 @@ import {
   DataTypes,
 } from "sequelize";
 
-export class InstitutoColector extends Model<
-  InferAttributes<InstitutoColector>,
-  InferCreationAttributes<InstitutoColector>
+export class InstitutosColector extends Model<
+  InferAttributes<InstitutosColector>,
+  InferCreationAttributes<InstitutosColector>
 > {
   declare institutoColectorId: CreationOptional<number>;
   declare institutoColectorNombre: string;
 }
 
-InstitutoColector.init(
+InstitutosColector.init(
   {
     institutoColectorId: {
       type: DataTypes.INTEGER,
@@ -45,7 +45,7 @@ InstitutoColector.init(
   }
 );
 
-InstitutoColector.sync({ alter: true })
+InstitutosColector.sync({ alter: true })
   .catch((e) => {
     console.log(e.message);
   })

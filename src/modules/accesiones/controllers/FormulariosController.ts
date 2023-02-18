@@ -9,7 +9,7 @@ import { FormaGeografica } from "../models/formularios/FormaGeografica";
 import { FormaPendiente } from "../models/formularios/FormaPendiente";
 import { FrecuenciaMuestra } from "../models/formularios/FrecuenciaMuestra";
 import { FuenteColeccion } from "../models/formularios/FuenteColeccion";
-import { InstitutoColector } from "../models/formularios/InstitutoColector";
+import { InstitutosColector } from "../models/formularios/InstitutosColector";
 import { Luz } from "../models/formularios/Luz";
 import { MetodoMuestreo } from "../models/formularios/MetodoMuestreo";
 import { PartePlantaUtilizada } from "../models/formularios/PartePlantaUtilizada";
@@ -149,7 +149,7 @@ export class FormulariosController {
   }
 
   public static async getInstitutoColector(req: Request, res: Response) {
-    InstitutoColector.findAll({
+    InstitutosColector.findAll({
       attributes: ["institutoColectorId", "institutoColectorNombre"],
     })
       .catch((e) => {

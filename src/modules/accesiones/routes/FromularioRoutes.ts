@@ -82,7 +82,7 @@ export class FromulariosRoutes implements IController {
     );
 
     this.router.get(
-      "/formulario/instituto-colector",
+      "/formulario/institutos-colectores",
       async (req: Request, res: Response) => {
         FormulariosController.getInstitutoColector(req, res);
       }
