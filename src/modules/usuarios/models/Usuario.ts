@@ -42,6 +42,7 @@ Usuario.init(
     usuarioEmail: {
       type: new DataTypes.STRING(50),
       allowNull: false,
+      unique: true,
     },
     usuarioTelefono: {
       type: new DataTypes.STRING(50),

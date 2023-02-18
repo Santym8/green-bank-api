@@ -17,6 +17,13 @@ export class UsuarioController {
         rolId,
       } = req.body;
 
+      const usuarioExitente = await Usuario.findOne({
+        where: { usuarioEmail: usuarioEmail },
+      });
+
+      if (usuarioExitente)
+        return res.status(400).json({ error: "Email ya utilizado" });
+
       const salt = await bcrypt.genSalt(10);
       const usuarioContraseniaCifrada = await bcrypt.hash(
         usuarioContrasenia,
