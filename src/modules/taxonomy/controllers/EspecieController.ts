@@ -21,10 +21,17 @@ export class EspecieController {
     try {
       const especieId = Number(req.params.especieId!);
 
-      const especies = await Especie.findAll({
+      const especies = await Especie.findByPk(especieId, {
         attributes: ["especieId", "especieNombre"],
-        where: {
-          especieId: especieId,
+        include: {
+          model: Genero,
+          attributes: ["generoNombre", "generoId"],
+          include: [
+            {
+              model: Familia,
+              attributes: ["familiaId", "familiaNombre"],
+            },
+          ],
         },
       });
       return res.status(200).json({ data: especies });

@@ -27,12 +27,17 @@ export class SubespecieController {
         include: [
           {
             model: Especie,
-            attributes: ["especieNombre"],
+            attributes: ["especieNombre", "especieId"],
             include: [
               {
                 model: Genero,
-                attributes: ["generoNombre"],
-                include: [{ model: Familia, attributes: ["familiaNombre"] }],
+                attributes: ["generoNombre", "generoId"],
+                include: [
+                  {
+                    model: Familia,
+                    attributes: ["familiaNombre", "familiaId"],
+                  },
+                ],
               },
             ],
           },
@@ -53,7 +58,7 @@ export class SubespecieController {
         include: [
           {
             model: Especie,
-            attributes: ["especieNombre"],
+            attributes: ["especieNombre", "especieId"],
             where: [
               especieId
                 ? {
@@ -64,7 +69,7 @@ export class SubespecieController {
             include: [
               {
                 model: Genero,
-                attributes: ["generoNombre"],
+                attributes: ["generoNombre", "generoId"],
                 where: [
                   generoId
                     ? {
@@ -75,7 +80,7 @@ export class SubespecieController {
                 include: [
                   {
                     model: Familia,
-                    attributes: ["familiaNombre"],
+                    attributes: ["familiaNombre", "familiaId"],
                     where: [
                       familiaId
                         ? {

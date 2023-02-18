@@ -28,17 +28,20 @@ export class NombreLocalController {
         include: [
           {
             model: Subespecie,
-            attributes: ["subespecieNombre"],
+            attributes: ["subespecieNombre", "subespecieId"],
             include: [
               {
                 model: Especie,
-                attributes: ["especieNombre"],
+                attributes: ["especieNombre", "especieId"],
                 include: [
                   {
                     model: Genero,
-                    attributes: ["generoNombre"],
+                    attributes: ["generoNombre", "generoId"],
                     include: [
-                      { model: Familia, attributes: ["familiaNombre"] },
+                      {
+                        model: Familia,
+                        attributes: ["familiaNombre", "familiaId"],
+                      },
                     ],
                   },
                 ],
@@ -67,7 +70,7 @@ export class NombreLocalController {
             include: [
               {
                 model: Especie,
-                attributes: ["especieNombre"],
+                attributes: ["especieNombre", "especieId"],
                 where: [
                   especieId
                     ? {
@@ -78,7 +81,7 @@ export class NombreLocalController {
                 include: [
                   {
                     model: Genero,
-                    attributes: ["generoNombre"],
+                    attributes: ["generoNombre", "generoId"],
                     where: [
                       generoId
                         ? {
@@ -89,7 +92,7 @@ export class NombreLocalController {
                     include: [
                       {
                         model: Familia,
-                        attributes: ["familiaNombre"],
+                        attributes: ["familiaNombre", "familiaId"],
                         where: [
                           familiaId
                             ? {
