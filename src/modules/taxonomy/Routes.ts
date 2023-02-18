@@ -12,7 +12,7 @@ import { FamiliaMiddlewares } from "./middlewares/FamiliaMiddlewares";
 import { GeneroMiddlewares } from "./middlewares/GeneroMiddlewares";
 import { NombreLocalMiddlewares } from "./middlewares/NombreLocalMiddlewares";
 import { SubespecieMiddlewares } from "./middlewares/SubespecieMiddlewares";
-export class TaxonomyController implements IController {
+export class TaxonomyRoutes implements IController {
   private router: Router;
   constructor() {
     this.router = Router();
