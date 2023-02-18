@@ -14,6 +14,7 @@ import { IController } from "./utils/interfaces/IController";
 import { IUrlController } from "./utils/interfaces/IUrlController";
 import { TaxonomyRoutes } from "./modules/taxonomy/Routes";
 import { UsuariosRoutes } from "./modules/usuarios/Routes";
+import { FromulariosRoutes } from "./modules/accesiones/routes/FromularioRoutes";
 
 export class Server {
   private app: express.Application;
@@ -26,6 +27,10 @@ export class Server {
     {
       url: "/api/usuario",
       controller: new UsuariosRoutes(),
+    },
+    {
+      url: "/api/accesiones",
+      controller: new FromulariosRoutes(),
     },
   ];
 

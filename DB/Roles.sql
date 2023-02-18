@@ -3,3 +3,4 @@ INSERT INTO public."Roles"("rolNombre", "createdAt", "updatedAt") VALUES
 ('ESPECIALISTA', NOW(), NOW()),
 ('ANALISTA', NOW(), NOW()),
 ('ADMINISTRADOR', NOW(), NOW());
+
