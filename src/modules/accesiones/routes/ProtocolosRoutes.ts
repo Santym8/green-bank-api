@@ -25,6 +25,14 @@ export class ProtocolosRoutes implements IController {
         ProtocolosControllers.createProtocolo(req, res);
       }
     );
+
+    this.router.delete(
+      "/protocolo/:protocoloId",
+      ProtocoloMiddlewares.deleteProtocoloMiddleware,
+      async (req: Request, res: Response) => {
+        ProtocolosControllers.delteProtocolo(req, res);
+      }
+    );
   }
 
   public getRouter(): Router {

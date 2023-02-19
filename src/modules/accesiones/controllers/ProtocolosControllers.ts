@@ -41,4 +41,20 @@ export class ProtocolosControllers {
       return res.status(400).json({ error: error.message });
     }
   }
+  public static async delteProtocolo(req: Request, res: Response) {
+    try {
+      const { protocoloId } = req.params;
+
+      const protocolo = await Protocolo.findByPk(protocoloId);
+
+      if (!protocolo)
+        return res.status(400).json({ error: "Protocolo no encontrado" });
+
+      await Protocolo.destroy({ where: { protocoloId } });
+
+      return res.status(200).json({ message: "Protocolo eliminado con éxito" });
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
 }

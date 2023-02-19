@@ -15,4 +15,9 @@ export class ProtocoloMiddlewares {
     body("usuarioId").notEmpty().isNumeric(),
     ProtocoloMiddlewares.grantAccess,
   ];
+
+  public static deleteProtocoloMiddleware = [
+    param("protocoloId").notEmpty().isNumeric(),
+    ProtocoloMiddlewares.grantAccess,
+  ];
 }
