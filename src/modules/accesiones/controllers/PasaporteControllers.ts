@@ -148,6 +148,15 @@ export class PasaporteController {
 
       const fotos = req.files;
 
+      if (fotos) {
+        for (const foto of fotos as Express.Multer.File[]) {
+          if (
+            !(foto.mimetype === "image/png" || foto.mimetype === "image/jpeg")
+          )
+            return res.status(400).json({ error: "Solo archivos PNG y JPG" });
+        }
+      }
+
       await sequelize.transaction(async (t: Transaction) => {
         const accesion = await Accesion.create(
           {
