@@ -458,4 +458,225 @@ export class PasaporteController {
       return res.status(400).json({ error: error.message });
     }
   }
+
+  public static async putAccesion(req: Request, res: Response) {
+    try {
+      const {
+        //accesion
+        usuarioId,
+        nombreLocalId,
+        estadoAccesionId,
+        // Recoleccion
+        recoleccionNombre,
+        recoleccionApellidos,
+        recoleccionFecha,
+        institutoColectorId,
+        // UbicacionRecolecion
+        ubicacionRecoleccionGrupoEtnico,
+        ubicacionRecoleccionGrupoIdioma,
+        ubicacionRecoleccionGrupoPais,
+        ubicacionRecoleccionGrupoProvincia,
+        ubicacionRecoleccionGrupoCanton,
+        ubicacionRecoleccionGrupoParroquia,
+        ubicacionRecoleccionGrupoLocalidad,
+        ubicacionRecoleccionGrupoNombrePredio,
+        ubicacionRecoleccionGrupoPropietario,
+        ubicacionRecoleccionGrupoLocalizacion,
+        ubicacionRecoleccionGrupoLatitud,
+        ubicacionRecoleccionGrupoLongitud,
+        ubicacionRecoleccionGrupoAltitud,
+        // Suelo
+        sueloDetalleTextura,
+        sueloDetallePedregosidad,
+        drenajeSueloId,
+        colorSueloId,
+        pedregosidadId,
+        texturaSueloId,
+        erosionSueloId,
+        // Clima
+        climaTemperatura,
+        climaHumedad,
+        luzId,
+        // Terreno
+        terrenoDetallesTopografia,
+        terrenoDetallesFisiografia,
+        terrenoDetallesVegetacion,
+        terrenoDetallesFormaGeografica,
+        terrenoAspectoPendienteNorte,
+        terrenoAspectoPendienteSur,
+        terrenoAspectoPendienteEste,
+        terrenoAspectoPendienteOeste,
+        topografiaId,
+        fisiografiaId,
+        vegetacionAlrededorId,
+        formaGeograficaId,
+        formaPendienteId,
+        // Fechas
+        fechaSiembra,
+        fechaFloracion,
+        fechaFructificacion,
+        fechaCosechas,
+        // Informacion
+        informacionDetallesEstado,
+        informacionDetallesFuenteColeccion,
+        informacionDetallesTipoMuestraColectada,
+        informacionPoblacionAislada,
+        informacionCultivosCerca,
+        informacionPlantasMuestradas,
+        informacionAreaMuestrada,
+        informacionUsoMaterial,
+        informacionDetallePartePlantaUtilizada,
+        informacionEjemplarHerbario,
+        informacionDetallePracticaCultural,
+        informacionAsociasionEspeciesSilvestres,
+        informacionPlagasEnfermedades,
+        estadoGermoplasmaId,
+        fuenteColeccionId,
+        tipoMuestraColectadaId,
+        partePlantaUtilizadaId,
+        metodoMuestreoId,
+        practicaCulturalId,
+        frecuenciaMuestraId,
+        estadoFenologicoPoblacionId,
+        usoMaterialId,
+        // Observacion
+        observacionContenido,
+      } = req.body;
+
+      const { accesionId } = req.params;
+
+      const accesion = await Accesion.findByPk(accesionId);
+      if (!accesion)
+        return res.status(400).json({ error: "Accesion no encontrada" });
+
+      await sequelize.transaction(async (t: Transaction) => {
+        const accesion = await Accesion.update(
+          {
+            usuarioId,
+            nombreLocalId,
+            estadoAccesionId,
+          },
+          { where: { accesionId: accesionId }, transaction: t }
+        );
+
+        const recoleccion = await Recoleccion.update(
+          {
+            recoleccionNombre,
+            recoleccionApellidos,
+            recoleccionFecha,
+            institutoColectorId,
+          },
+          { where: { accesionId: accesionId }, transaction: t }
+        );
+
+        const ubicacionRecoleccion = await UbicacionRecoleccion.update(
+          {
+            ubicacionRecoleccionGrupoEtnico,
+            ubicacionRecoleccionGrupoIdioma,
+            ubicacionRecoleccionGrupoPais,
+            ubicacionRecoleccionGrupoProvincia,
+            ubicacionRecoleccionGrupoCanton,
+            ubicacionRecoleccionGrupoParroquia,
+            ubicacionRecoleccionGrupoLocalidad,
+            ubicacionRecoleccionGrupoNombrePredio,
+            ubicacionRecoleccionGrupoPropietario,
+            ubicacionRecoleccionGrupoLocalizacion,
+            ubicacionRecoleccionGrupoLatitud,
+            ubicacionRecoleccionGrupoLongitud,
+            ubicacionRecoleccionGrupoAltitud,
+          },
+          { where: { accesionId: accesionId }, transaction: t }
+        );
+
+        const suelo = await Suelo.update(
+          {
+            sueloDetalleTextura,
+            sueloDetallePedregosidad,
+            drenajeSueloId,
+            colorSueloId,
+            pedregosidadId,
+            texturaSueloId,
+            erosionSueloId,
+          },
+          { where: { accesionId: accesionId }, transaction: t }
+        );
+
+        const clima = await Clima.update(
+          {
+            climaTemperatura,
+            climaHumedad,
+            luzId,
+          },
+          { where: { accesionId: accesionId }, transaction: t }
+        );
+
+        const terreno = await Terreno.update(
+          {
+            terrenoDetallesTopografia,
+            terrenoDetallesFisiografia,
+            terrenoDetallesVegetacion,
+            terrenoDetallesFormaGeografica,
+            terrenoAspectoPendienteNorte,
+            terrenoAspectoPendienteSur,
+            terrenoAspectoPendienteEste,
+            terrenoAspectoPendienteOeste,
+            topografiaId,
+            fisiografiaId,
+            vegetacionAlrededorId,
+            formaGeograficaId,
+            formaPendienteId,
+          },
+          { where: { accesionId: accesionId }, transaction: t }
+        );
+
+        const fechas = await Fechas.update(
+          {
+            fechaSiembra,
+            fechaFloracion,
+            fechaFructificacion,
+            fechaCosechas,
+          },
+          { where: { accesionId: accesionId }, transaction: t }
+        );
+
+        const informacion = await Informacion.update(
+          {
+            informacionDetallesEstado,
+            informacionDetallesFuenteColeccion,
+            informacionDetallesTipoMuestraColectada,
+            informacionPoblacionAislada,
+            informacionCultivosCerca,
+            informacionPlantasMuestradas,
+            informacionAreaMuestrada,
+            informacionUsoMaterial,
+            informacionDetallePartePlantaUtilizada,
+            informacionEjemplarHerbario,
+            informacionDetallePracticaCultural,
+            informacionAsociasionEspeciesSilvestres,
+            informacionPlagasEnfermedades,
+            estadoGermoplasmaId,
+            fuenteColeccionId,
+            tipoMuestraColectadaId,
+            partePlantaUtilizadaId,
+            metodoMuestreoId,
+            practicaCulturalId,
+            frecuenciaMuestraId,
+            estadoFenologicoPoblacionId,
+            usoMaterialId,
+          },
+          { where: { accesionId: accesionId }, transaction: t }
+        );
+
+        const observacion = await Observacion.update(
+          {
+            observacionContenido,
+          },
+          { where: { accesionId: accesionId }, transaction: t }
+        );
+      });
+      return res.status(200).json({ message: "Accesion actualizada con éxito" });
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
 }

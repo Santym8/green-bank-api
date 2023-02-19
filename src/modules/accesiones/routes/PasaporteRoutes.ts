@@ -33,6 +33,10 @@ export class PasaporteRoutes implements IController {
     this.router.get("/pasaporte", async (req: Request, res: Response) => {
       PasaporteController.getAccesiones(req, res);
     });
+
+    this.router.put("/pasaporte/:accesionId", async (req: Request, res: Response) => {
+      PasaporteController.putAccesion(req, res);
+    });
   }
 
   public getRouter(): Router {
