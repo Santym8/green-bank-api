@@ -481,6 +481,7 @@ export class PasaporteController {
             ],
           },
           { model: Observacion },
+          { model: Foto },
         ],
       });
 
