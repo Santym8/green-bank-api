@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Transaction } from "sequelize";
+import { Op, Transaction } from "sequelize";
 import { sequelize } from "../../../config/DataBase";
 import { Especie } from "../../taxonomy/models/Especie";
 import { Familia } from "../../taxonomy/models/Familia";
@@ -7,6 +7,7 @@ import { Genero } from "../../taxonomy/models/Genero";
 import { NombreLocal } from "../../taxonomy/models/NombreLocal";
 import { Subespecie } from "../../taxonomy/models/Subespecie";
 import { Accesion } from "../models/Accesion";
+import { EstadoAccesion } from "../models/EstadoAccesion";
 import { ColorSuelo } from "../models/formularios/ColorSuelo";
 import { DrenajeSuelo } from "../models/formularios/DrenajeSuelo";
 import { ErosionSuelo } from "../models/formularios/ErosionSuelo";
@@ -268,6 +269,119 @@ export class PasaporteController {
         );
       });
       return res.status(200).json({ message: "Accesion creada con éxito" });
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  public static async deleteAccesion(req: Request, res: Response) {
+    try {
+      const { accesionId } = req.params;
+      const accesion = await Accesion.findByPk(accesionId);
+      if (!accesion)
+        return res.status(400).json({ error: "Accesion no encontrada" });
+      accesion.destroy();
+      await accesion.save();
+      return res.status(200).json({ message: "Accesion eliminado con éxito" });
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  public static async getAccesiones(req: Request, res: Response) {
+    try {
+      const {
+        familiaId,
+        generoId,
+        especieId,
+        subespecieId,
+        nombreLocalId,
+        createdAtInicio,
+        createdAtFinal,
+        estadoAccesionId,
+      } = req.query;
+
+      const accesiones = await Accesion.findAll({
+        attributes: ["accesionId", "createdAt"],
+        where: [
+          createdAtInicio && createdAtFinal
+            ? {
+                createdAt: {
+                  [Op.between]: [
+                    new Date(createdAtInicio as string),
+                    new Date(createdAtFinal as string),
+                  ],
+                },
+              }
+            : {},
+          createdAtInicio && !createdAtFinal
+            ? {
+                createdAt: new Date(createdAtInicio as string),
+              }
+            : {},
+        ],
+        include: [
+          {
+            model: EstadoAccesion,
+            attributes: ["estadoAccesionId", "estadoAccesionNombre"],
+            where: [
+              !estadoAccesionId ? {} : { estadoAccesionId: estadoAccesionId },
+            ],
+          },
+          {
+            model: NombreLocal,
+            attributes: ["nombreLocalId", "nombreLocalNombre"],
+            where: [nombreLocalId ? { nombreLocalId: nombreLocalId } : {}],
+            include: [
+              {
+                model: Subespecie,
+                attributes: ["subespecieId", "subespecieNombre"],
+                where: [subespecieId ? { subespecieId: subespecieId } : {}],
+                include: [
+                  {
+                    model: Especie,
+                    attributes: ["especieNombre", "especieId"],
+                    where: [
+                      especieId
+                        ? {
+                            especieId: Number(especieId),
+                          }
+                        : {},
+                    ],
+                    include: [
+                      {
+                        model: Genero,
+                        attributes: ["generoNombre", "generoId"],
+                        where: [
+                          generoId
+                            ? {
+                                generoId: Number(generoId),
+                              }
+                            : {},
+                        ],
+                        include: [
+                          {
+                            model: Familia,
+                            attributes: ["familiaNombre", "familiaId"],
+                            where: [
+                              familiaId
+                                ? {
+                                    familiaId: Number(familiaId),
+                                  }
+                                : {},
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+      return res.status(200).json({ data: accesiones });
     } catch (error: any) {
       return res.status(400).json({ error: error.message });
     }

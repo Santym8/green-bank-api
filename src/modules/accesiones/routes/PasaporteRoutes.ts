@@ -22,6 +22,17 @@ export class PasaporteRoutes implements IController {
         PasaporteController.getPasaporteById(req, res);
       }
     );
+
+    this.router.delete(
+      "/pasaporte/:accesionId",
+      async (req: Request, res: Response) => {
+        PasaporteController.deleteAccesion(req, res);
+      }
+    );
+
+    this.router.get("/pasaporte", async (req: Request, res: Response) => {
+      PasaporteController.getAccesiones(req, res);
+    });
   }
 
   public getRouter(): Router {
