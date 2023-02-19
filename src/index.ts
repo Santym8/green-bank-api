@@ -16,6 +16,7 @@ import { TaxonomyRoutes } from "./modules/taxonomy/Routes";
 import { UsuariosRoutes } from "./modules/usuarios/Routes";
 import { FromulariosRoutes } from "./modules/accesiones/routes/FromularioRoutes";
 import { PasaporteRoutes } from "./modules/accesiones/routes/PasaporteRoutes";
+import { ProtocolosRoutes } from "./modules/accesiones/routes/ProtocolosRoutes";
 
 export class Server {
   private app: express.Application;
@@ -36,6 +37,10 @@ export class Server {
     {
       url: "/api/accesiones",
       controller: new PasaporteRoutes(),
+    },
+    {
+      url: "/api/accesiones",
+      controller: new ProtocolosRoutes(),
     },
   ];
 
