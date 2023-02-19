@@ -15,9 +15,8 @@ export class Accesion extends Model<
   InferAttributes<Accesion>,
   InferCreationAttributes<Accesion>
 > {
-  declare accesionId: CreationOptional<number>;
+  declare accesionId: string;
   declare createdAt: CreationOptional<Date>;
-
   declare estadoAccesionId: ForeignKey<EstadoAccesion["estadoAccesionId"]>;
   declare nombreLocalId: ForeignKey<NombreLocal["nombreLocalId"]>;
   declare usuarioId: ForeignKey<Usuario["usuarioId"]>;
@@ -26,9 +25,9 @@ export class Accesion extends Model<
 Accesion.init(
   {
     accesionId: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.STRING(8),
       primaryKey: true,
+      allowNull: false,
     },
     createdAt: DataTypes.DATEONLY,
   },
@@ -40,7 +39,6 @@ Accesion.init(
   }
 );
 
-
 EstadoAccesion.hasMany(Accesion, {
   foreignKey: "estadoAccesionId",
   onDelete: "RESTRICT",
@@ -50,7 +48,6 @@ Accesion.belongsTo(EstadoAccesion, {
   foreignKey: "estadoAccesionId",
 });
 
-
 NombreLocal.hasMany(Accesion, {
   foreignKey: "nombreLocalId",
   onDelete: "RESTRICT",
@@ -59,7 +56,6 @@ NombreLocal.hasMany(Accesion, {
 Accesion.belongsTo(NombreLocal, {
   foreignKey: "nombreLocalId",
 });
-
 
 Usuario.hasMany(Accesion, {
   foreignKey: "usuarioId",
@@ -75,5 +71,5 @@ Accesion.sync({ alter: true })
     console.log(e.message);
   })
   .then(() => {
-    console.log("Tabla EstadoAccesion actualizada");
+    console.log("Tabla Accesion actualizada");
   });
