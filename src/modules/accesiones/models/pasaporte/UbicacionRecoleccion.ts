@@ -78,52 +78,6 @@ UbicacionRecoleccion.init(
     },
   },
   {
-    // hooks: {
-    //   beforeCreate: (data, options) => {
-    //     data.ubicacionRecoleccionGrupoEtnico =
-    //       data.ubicacionRecoleccionGrupoEtnico.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoIdioma =
-    //       data.ubicacionRecoleccionGrupoIdioma.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoPais =
-    //       data.ubicacionRecoleccionGrupoPais.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoProvincia =
-    //       data.ubicacionRecoleccionGrupoProvincia.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoCanton =
-    //       data.ubicacionRecoleccionGrupoCanton.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoParroquia =
-    //       data.ubicacionRecoleccionGrupoParroquia.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoLocalidad =
-    //       data.ubicacionRecoleccionGrupoLocalidad.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoNombrePredio =
-    //       data.ubicacionRecoleccionGrupoNombrePredio.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoPropietario =
-    //       data.ubicacionRecoleccionGrupoPropietario.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoLocalizacion =
-    //       data.ubicacionRecoleccionGrupoLocalizacion.toUpperCase();
-    //   },
-    //   beforeUpdate: (data, options) => {
-    //     data.ubicacionRecoleccionGrupoEtnico =
-    //       data.ubicacionRecoleccionGrupoEtnico.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoIdioma =
-    //       data.ubicacionRecoleccionGrupoIdioma.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoPais =
-    //       data.ubicacionRecoleccionGrupoPais.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoProvincia =
-    //       data.ubicacionRecoleccionGrupoProvincia.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoCanton =
-    //       data.ubicacionRecoleccionGrupoCanton.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoParroquia =
-    //       data.ubicacionRecoleccionGrupoParroquia.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoLocalidad =
-    //       data.ubicacionRecoleccionGrupoLocalidad.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoNombrePredio =
-    //       data.ubicacionRecoleccionGrupoNombrePredio.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoPropietario =
-    //       data.ubicacionRecoleccionGrupoPropietario.toUpperCase();
-    //     data.ubicacionRecoleccionGrupoLocalizacion =
-    //       data.ubicacionRecoleccionGrupoLocalizacion.toUpperCase();
-    //   },
-    // },
     tableName: "UbicacionRecoleccion",
     freezeTableName: true,
     paranoid: true,
