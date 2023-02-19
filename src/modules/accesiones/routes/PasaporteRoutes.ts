@@ -15,6 +15,13 @@ export class PasaporteRoutes implements IController {
     this.router.post("/pasaporte", async (req: Request, res: Response) => {
       PasaporteController.createAccesion(req, res);
     });
+
+    this.router.get(
+      "/pasaporte/:accesionId",
+      async (req: Request, res: Response) => {
+        PasaporteController.getPasaporteById(req, res);
+      }
+    );
   }
 
   public getRouter(): Router {
