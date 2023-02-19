@@ -8,7 +8,6 @@ import {
   ForeignKey,
 } from "sequelize";
 import { Accesion } from "../Accesion";
-import { Luz } from "../formularios/Luz";
 import { Topografia } from "../formularios/Topografia";
 import { Fisiografia } from "../formularios/Fisiografia";
 import { VegetacionAlrededor } from "../formularios/VegetacionAlrededor";
@@ -20,14 +19,14 @@ export class Terreno extends Model<
   InferCreationAttributes<Terreno>
 > {
   declare terrenoId: CreationOptional<number>;
-  declare terrenoDetallesTopografia: string;
-  declare terrenoDetallesFisiografia: string;
-  declare terrenoDetallesVegetacion: string;
-  declare terrenoDetallesFormaGeografica: string;
-  declare terrenoAspectoPendienteNorte: number;
-  declare terrenoAspectoPendienteSur: number;
-  declare terrenoAspectoPendienteEste: number;
-  declare terrenoAspectoPendienteOeste: number;
+  declare terrenoDetallesTopografia: CreationOptional<string>;
+  declare terrenoDetallesFisiografia: CreationOptional<string>;
+  declare terrenoDetallesVegetacion: CreationOptional<string>;
+  declare terrenoDetallesFormaGeografica: CreationOptional<string>;
+  declare terrenoAspectoPendienteNorte: CreationOptional<number>;
+  declare terrenoAspectoPendienteSur: CreationOptional<number>;
+  declare terrenoAspectoPendienteEste: CreationOptional<number>;
+  declare terrenoAspectoPendienteOeste: CreationOptional<number>;
 
   declare topografiaId: ForeignKey<Topografia["topografiaId"]>;
   declare fisiografiaId: ForeignKey<Fisiografia["fisiografiaId"]>;
@@ -36,6 +35,7 @@ export class Terreno extends Model<
   >;
   declare formaGeograficaId: ForeignKey<FormaGeografica["formaGeograficaId"]>;
   declare formaPendienteId: ForeignKey<FormaPendiente["formaPendienteId"]>;
+  declare accesionId: ForeignKey<Accesion["accesionId"]>;
 }
 
 Terreno.init(

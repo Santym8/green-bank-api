@@ -15,9 +15,10 @@ export class Recoleccion extends Model<
   InferCreationAttributes<Recoleccion>
 > {
   declare recoleccionId: CreationOptional<number>;
-  declare recoleccionNombre: string;
-  declare recoleccionApellidos: string;
-  declare createdAt: CreationOptional<Date>;
+  declare recoleccionNombre: CreationOptional<string>;
+  declare recoleccionApellidos: CreationOptional<string>;
+  declare recoleccionFecha: CreationOptional<Date>;
+
   declare institutoColectorId: ForeignKey<
     InstitutosColector["institutoColectorId"]
   >;
@@ -33,25 +34,15 @@ Recoleccion.init(
     },
     recoleccionNombre: {
       type: DataTypes.STRING(50),
-      allowNull: false,
     },
     recoleccionApellidos: {
       type: DataTypes.STRING(50),
-      allowNull: false,
     },
-    createdAt: DataTypes.DATEONLY,
+    recoleccionFecha: {
+      type: DataTypes.DATEONLY,
+    },
   },
   {
-    hooks: {
-      beforeCreate: (data, options) => {
-        data.recoleccionNombre = data.recoleccionNombre.toUpperCase();
-        data.recoleccionApellidos = data.recoleccionApellidos.toUpperCase();
-      },
-      beforeUpdate: (data, options) => {
-        data.recoleccionNombre = data.recoleccionNombre.toUpperCase();
-        data.recoleccionApellidos = data.recoleccionApellidos.toUpperCase();
-      },
-    },
     tableName: "Recoleccion",
     freezeTableName: true,
     paranoid: true,
@@ -60,12 +51,12 @@ Recoleccion.init(
 );
 
 InstitutosColector.hasMany(Recoleccion, {
-  foreignKey: "institutosColectorId",
+  foreignKey: "institutoColectorId",
   onDelete: "RESTRICT",
   onUpdate: "CASCADE",
 });
 Recoleccion.belongsTo(InstitutosColector, {
-  foreignKey: "institutosColectorId",
+  foreignKey: "institutoColectorId",
 });
 
 Accesion.hasOne(Recoleccion, {

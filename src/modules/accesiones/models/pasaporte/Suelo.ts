@@ -19,14 +19,15 @@ export class Suelo extends Model<
   InferCreationAttributes<Suelo>
 > {
   declare sueloId: CreationOptional<number>;
-  declare sueloDetalleTextura: string;
-  declare sueloDetallePedregosidad: string;
+  declare sueloDetalleTextura: CreationOptional<string>;
+  declare sueloDetallePedregosidad: CreationOptional<string>;
 
   declare drenajeSueloId: ForeignKey<DrenajeSuelo["drenajeSueloId"]>;
   declare colorSueloId: ForeignKey<ColorSuelo["colorSueloId"]>;
   declare pedregosidadId: ForeignKey<Pedregosidad["pedregosidadId"]>;
   declare texturaSueloId: ForeignKey<TexturaSuelo["texturaSueloId"]>;
   declare erosionSueloId: ForeignKey<ErosionSuelo["erosionSueloId"]>;
+  declare accesionId: ForeignKey<Accesion["accesionId"]>;
 }
 
 Suelo.init(
@@ -73,12 +74,12 @@ Suelo.belongsTo(Accesion, {
 });
 
 DrenajeSuelo.hasMany(Suelo, {
-  foreignKey: "drenajeId",
+  foreignKey: "drenajeSueloId",
   onDelete: "RESTRICT",
   onUpdate: "CASCADE",
 });
 Suelo.belongsTo(DrenajeSuelo, {
-  foreignKey: "drenajeId",
+  foreignKey: "drenajeSueloId",
 });
 
 ColorSuelo.hasMany(Suelo, {

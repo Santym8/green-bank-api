@@ -23,19 +23,19 @@ export class Informacion extends Model<
   InferCreationAttributes<Informacion>
 > {
   declare informacionId: CreationOptional<number>;
-  declare informacionDetallesEstado: string;
-  declare informacionDetallesFuenteColeccion: string;
-  declare informacionDetallesTipoMuestraColectada: string;
-  declare informacionPoblacionAislada: boolean;
-  declare informacionCultivosCerca: boolean;
-  declare informacionPlantasMuestradas: number;
-  declare informacionAreaMuestrada: number;
-  declare informacionUsoMaterial: string;
-  declare informacionDetallePartePlantaUtilizada: string;
-  declare informacionEjemplarHerbario: boolean;
-  declare informacionDetallePracticaCultural: string;
-  declare informacionAsociasionEspeciesSilvestres: string;
-  declare informacionPlagasEnfermedades: string;
+  declare informacionDetallesEstado: CreationOptional<string>;
+  declare informacionDetallesFuenteColeccion: CreationOptional<string>;
+  declare informacionDetallesTipoMuestraColectada: CreationOptional<string>;
+  declare informacionPoblacionAislada: CreationOptional<boolean>;
+  declare informacionCultivosCerca: CreationOptional<boolean>;
+  declare informacionPlantasMuestradas: CreationOptional<number>;
+  declare informacionAreaMuestrada: CreationOptional<number>;
+  declare informacionUsoMaterial: CreationOptional<string>;
+  declare informacionDetallePartePlantaUtilizada: CreationOptional<string>;
+  declare informacionEjemplarHerbario: CreationOptional<boolean>;
+  declare informacionDetallePracticaCultural: CreationOptional<string>;
+  declare informacionAsociasionEspeciesSilvestres: CreationOptional<string>;
+  declare informacionPlagasEnfermedades: CreationOptional<string>;
 
   declare estadoGermoplasmaId: ForeignKey<
     EstadoGermoplasma["estadoGermoplasmaId"]
@@ -58,6 +58,8 @@ export class Informacion extends Model<
     EstadoFenologicoPoblacion["estadoFenologicoPoblacionId"]
   >;
   declare usoMaterialId: ForeignKey<UsoMaterial["usoMaterialId"]>;
+
+  declare accesionId: ForeignKey<Accesion["accesionId"]>; 
 }
 
 Informacion.init(

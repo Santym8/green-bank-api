@@ -41,10 +41,10 @@
 
 
 
-INSERT INTO public."EstadoFenologicoPoblacion"("estadoFenologicoPoblacionNombre", "createdAt", "updatedAt") VALUES
-('VEGETATIVO', NOW(),NOW()),
-('FLORACION', NOW(),NOW()),
-('CON SEMILLAS MADURAS', NOW(),NOW());
+-- INSERT INTO public."EstadoFenologicoPoblacion"("estadoFenologicoPoblacionNombre", "createdAt", "updatedAt") VALUES
+-- ('VEGETATIVO', NOW(),NOW()),
+-- ('FLORACION', NOW(),NOW()),
+-- ('CON SEMILLAS MADURAS', NOW(),NOW());
 
 
 
@@ -210,3 +210,9 @@ INSERT INTO public."EstadoFenologicoPoblacion"("estadoFenologicoPoblacionNombre"
 -- ('ARBUSTOS', NOW(),NOW()),
 -- ('BOSQUE NATIVO', NOW(),NOW()),
 -- ('ARBOLEDA', NOW(),NOW());
+
+
+-- INSERT INTO public."EstadoAccesion"("estadoAccesionNombre", "createdAt", "updatedAt") VALUES
+-- ('ALMACENAMIENTO', NOW(), NOW()),
+-- ('DESINFECCION', NOW(), NOW()),
+-- ('DESECHADO', NOW(), NOW());

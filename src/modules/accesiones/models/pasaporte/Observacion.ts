@@ -5,6 +5,7 @@ import {
   InferCreationAttributes,
   CreationOptional,
   DataTypes,
+  ForeignKey,
 } from "sequelize";
 import { Accesion } from "../Accesion";
 
@@ -13,7 +14,8 @@ export class Observacion extends Model<
   InferCreationAttributes<Observacion>
 > {
   declare observacionId: CreationOptional<number>;
-  declare observacionContenido: string;
+  declare observacionContenido: CreationOptional<string>;
+  declare accesionId: ForeignKey<Accesion["accesionId"]>; 
 }
 
 Observacion.init(

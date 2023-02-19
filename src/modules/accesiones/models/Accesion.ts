@@ -9,15 +9,18 @@ import {
 } from "sequelize";
 import { EstadoAccesion } from "./EstadoAccesion";
 import { NombreLocal } from "../../taxonomy/models/NombreLocal";
+import { Usuario } from "../../usuarios/models/Usuario";
 
 export class Accesion extends Model<
   InferAttributes<Accesion>,
   InferCreationAttributes<Accesion>
 > {
   declare accesionId: CreationOptional<number>;
+  declare createdAt: CreationOptional<Date>;
+
   declare estadoAccesionId: ForeignKey<EstadoAccesion["estadoAccesionId"]>;
   declare nombreLocalId: ForeignKey<NombreLocal["nombreLocalId"]>;
-  declare createdAt: CreationOptional<Date>;
+  declare usuarioId: ForeignKey<Usuario["usuarioId"]>;
 }
 
 Accesion.init(
@@ -30,12 +33,42 @@ Accesion.init(
     createdAt: DataTypes.DATEONLY,
   },
   {
-    tableName: "EstadoAccesion",
+    tableName: "Accesion",
     freezeTableName: true,
     paranoid: true,
     sequelize,
   }
 );
+
+
+EstadoAccesion.hasMany(Accesion, {
+  foreignKey: "estadoAccesionId",
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+Accesion.belongsTo(EstadoAccesion, {
+  foreignKey: "estadoAccesionId",
+});
+
+
+NombreLocal.hasMany(Accesion, {
+  foreignKey: "nombreLocalId",
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+Accesion.belongsTo(NombreLocal, {
+  foreignKey: "nombreLocalId",
+});
+
+
+Usuario.hasMany(Accesion, {
+  foreignKey: "usuarioId",
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+Accesion.belongsTo(Usuario, {
+  foreignKey: "usuarioId",
+});
 
 Accesion.sync({ alter: true })
   .catch((e) => {

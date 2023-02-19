@@ -15,10 +15,11 @@ export class Clima extends Model<
   InferCreationAttributes<Clima>
 > {
   declare climaId: CreationOptional<number>;
-  declare climaTemperatura: number;
-  declare climaHumedad: number;
+  declare climaTemperatura: CreationOptional<number>;
+  declare climaHumedad: CreationOptional<number>;
 
   declare luzId: ForeignKey<Luz["luzId"]>;
+  declare accesionId: ForeignKey<Accesion["accesionId"]>;
 }
 
 Clima.init(

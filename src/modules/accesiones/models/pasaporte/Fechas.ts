@@ -15,10 +15,10 @@ export class Fechas extends Model<
   InferCreationAttributes<Fechas>
 > {
   declare fechasId: CreationOptional<number>;
-  declare fechaSiembra: Date;
-  declare fechaFloracion: Date;
-  declare fechaFructificacion: Date;
-  declare fechaCosechas: Date;
+  declare fechaSiembra: CreationOptional<Date>;
+  declare fechaFloracion: CreationOptional<Date>;
+  declare fechaFructificacion: CreationOptional<Date>;
+  declare fechaCosechas: CreationOptional<Date>;
 
   declare accesionId: ForeignKey<Accesion["accesionId"]>;
 }
