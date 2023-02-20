@@ -1,9 +1,8 @@
 const { Sequelize } = require("sequelize");
+import { config } from "dotenv";
 
-export const sequelize = new Sequelize(
-  "postgres://admin:HPcswMW9RhSwHrATearsT6orKiIRXoCk@dpg-cfle289gp3ju5h3kfo80-a.oregon-postgres.render.com/green_bank?sslmode=no-verify",
-  { logging: false }
-);
+config();
+export const sequelize = new Sequelize(process.env.DB, { logging: false });
 
 try {
   sequelize.authenticate();

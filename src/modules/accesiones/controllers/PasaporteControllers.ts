@@ -37,7 +37,14 @@ import { Recoleccion } from "../models/pasaporte/Recoleccion";
 import { Suelo } from "../models/pasaporte/Suelo";
 import { Terreno } from "../models/pasaporte/Terreno";
 import { UbicacionRecoleccion } from "../models/pasaporte/UbicacionRecoleccion";
+import {
+  BlobServiceClient,
+  StorageSharedKeyCredential,
+} from "@azure/storage-blob";
+import { config } from "dotenv";
+import { Foto } from "../models/Foto";
 
+config();
 export class PasaporteController {
   public static makeid(length: number) {
     let result = "";
@@ -50,6 +57,11 @@ export class PasaporteController {
     }
     return result;
   }
+
+  public static blobService = BlobServiceClient.fromConnectionString(
+    process.env.AZURE_STORAGE_CONNECTION_STRING!
+  );
+
   public static async createAccesion(req: Request, res: Response) {
     try {
       const {
@@ -133,6 +145,17 @@ export class PasaporteController {
         // Observacion
         observacionContenido,
       } = req.body;
+
+      const fotos = req.files;
+
+      if (fotos) {
+        for (const foto of fotos as Express.Multer.File[]) {
+          if (
+            !(foto.mimetype === "image/png" || foto.mimetype === "image/jpeg")
+          )
+            return res.status(400).json({ error: "Solo archivos PNG y JPG" });
+        }
+      }
 
       await sequelize.transaction(async (t: Transaction) => {
         const accesion = await Accesion.create(
@@ -267,7 +290,24 @@ export class PasaporteController {
           },
           { transaction: t }
         );
+
+        if (fotos) {
+          const containerClient =
+            PasaporteController.blobService.getContainerClient("fotos");
+          for (const foto of fotos as Express.Multer.File[]) {
+            const blob = containerClient.getBlockBlobClient(foto.originalname);
+            await blob.uploadData(foto.buffer);
+            await Foto.create(
+              {
+                fotoUrl: blob.url,
+                accesionId: accesion.accesionId,
+              },
+              { transaction: t }
+            );
+          }
+        }
       });
+
       return res.status(200).json({ message: "Accesion creada con éxito" });
     } catch (error: any) {
       return res.status(400).json({ error: error.message });
@@ -450,6 +490,7 @@ export class PasaporteController {
             ],
           },
           { model: Observacion },
+          { model: Foto },
         ],
       });
 
@@ -674,7 +715,9 @@ export class PasaporteController {
           { where: { accesionId: accesionId }, transaction: t }
         );
       });
-      return res.status(200).json({ message: "Accesion actualizada con éxito" });
+      return res
+        .status(200)
+        .json({ message: "Accesion actualizada con éxito" });
     } catch (error: any) {
       return res.status(400).json({ error: error.message });
     }

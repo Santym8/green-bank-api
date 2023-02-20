@@ -45,18 +45,6 @@ Suelo.init(
     },
   },
   {
-    hooks: {
-      beforeCreate: (data, options) => {
-        data.sueloDetalleTextura = data.sueloDetalleTextura.toUpperCase();
-        data.sueloDetallePedregosidad =
-          data.sueloDetallePedregosidad.toUpperCase();
-      },
-      beforeUpdate: (data, options) => {
-        data.sueloDetalleTextura = data.sueloDetalleTextura.toUpperCase();
-        data.sueloDetallePedregosidad =
-          data.sueloDetallePedregosidad.toUpperCase();
-      },
-    },
     tableName: "Suelo",
     freezeTableName: true,
     paranoid: true,

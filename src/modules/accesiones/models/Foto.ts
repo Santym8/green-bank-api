@@ -15,7 +15,8 @@ export class Foto extends Model<
   InferCreationAttributes<Foto>
 > {
   declare fotoId: CreationOptional<number>;
-  declare fotoUrl: Date;
+  declare fotoUrl: string;
+  declare accesionId: ForeignKey<Accesion["accesionId"]>;
 }
 
 Foto.init(

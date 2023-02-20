@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import multer from "multer";
 import { IController } from "../../../utils/interfaces/IController";
 // Controllers
 import { FormulariosController } from "../controllers/FormulariosController";
@@ -12,9 +13,15 @@ export class PasaporteRoutes implements IController {
   }
 
   private addRoutes(): void {
-    this.router.post("/pasaporte", async (req: Request, res: Response) => {
-      PasaporteController.createAccesion(req, res);
-    });
+    const updload = multer().array("fotos", 5);
+
+    this.router.post(
+      "/pasaporte",
+      updload,
+      async (req: Request, res: Response) => {
+        PasaporteController.createAccesion(req, res);
+      }
+    );
 
     this.router.get(
       "/pasaporte/:accesionId",
@@ -34,9 +41,12 @@ export class PasaporteRoutes implements IController {
       PasaporteController.getAccesiones(req, res);
     });
 
-    this.router.put("/pasaporte/:accesionId", async (req: Request, res: Response) => {
-      PasaporteController.putAccesion(req, res);
-    });
+    this.router.put(
+      "/pasaporte/:accesionId",
+      async (req: Request, res: Response) => {
+        PasaporteController.putAccesion(req, res);
+      }
+    );
   }
 
   public getRouter(): Router {
