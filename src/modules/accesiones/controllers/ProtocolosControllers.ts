@@ -41,6 +41,7 @@ export class ProtocolosControllers {
       return res.status(400).json({ error: error.message });
     }
   }
+
   public static async delteProtocolo(req: Request, res: Response) {
     try {
       const { protocoloId } = req.params;
@@ -53,6 +54,37 @@ export class ProtocolosControllers {
       await Protocolo.destroy({ where: { protocoloId } });
 
       return res.status(200).json({ message: "Protocolo eliminado con éxito" });
+    } catch (error: any) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  public static async getProtocolosByAccesionId(req: Request, res: Response) {
+    try {
+      const { accesionId, createdAtInicio, createdAtFinal } = req.query;
+
+      const protocolo = await Protocolo.findAll({
+        where: [
+          { accesionId: accesionId as string },
+          createdAtInicio && createdAtFinal
+            ? {
+                createdAt: {
+                  [Op.between]: [
+                    new Date(createdAtInicio as string),
+                    new Date(createdAtFinal as string),
+                  ],
+                },
+              }
+            : {},
+          createdAtInicio && !createdAtFinal
+            ? {
+                createdAt: new Date(createdAtInicio as string),
+              }
+            : {},
+        ],
+      });
+
+      return res.status(200).json({ data: protocolo });
     } catch (error: any) {
       return res.status(400).json({ error: error.message });
     }
