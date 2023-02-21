@@ -154,6 +154,13 @@ export class FromulariosRoutes implements IController {
         FormulariosController.getVegetacionAlrededor(req, res);
       }
     );
+
+    this.router.get(
+      "/formulario/estado-accesion",
+      async (req: Request, res: Response) => {
+        FormulariosController.getEstadosAccesion(req, res);
+      }
+    );
   }
 
   public getRouter(): Router {

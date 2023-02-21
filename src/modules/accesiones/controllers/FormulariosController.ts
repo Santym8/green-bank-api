@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { EstadoAccesion } from "../models/EstadoAccesion";
 import { ColorSuelo } from "../models/formularios/ColorSuelo";
 import { DrenajeSuelo } from "../models/formularios/DrenajeSuelo";
 import { ErosionSuelo } from "../models/formularios/ErosionSuelo";
@@ -279,4 +280,19 @@ export class FormulariosController {
         return res.status(200).json({ data: data });
       });
   }
+
+  public static async getEstadosAccesion(req: Request, res: Response) {
+    EstadoAccesion.findAll({
+      attributes: ["estadoAccesionId", "estadoAccesionNombre"],
+    })
+      .catch((e) => {
+        return res.status(400).json({ error: e.message });
+      })
+      .then((data) => {
+        return res.status(200).json({ data: data });
+      });
+  }
+
+
+
 }
