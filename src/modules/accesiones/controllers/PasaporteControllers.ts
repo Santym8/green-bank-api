@@ -147,11 +147,15 @@ export class PasaporteController {
       } = req.body;
 
       const fotos = req.files;
-
       if (fotos) {
         for (const foto of fotos as Express.Multer.File[]) {
           if (
-            !(foto.mimetype === "image/png" || foto.mimetype === "image/jpeg")
+            !(
+              foto.mimetype === "image/png" ||
+              foto.mimetype === "image/jpeg" ||
+              foto.mimetype === "image/jpg" ||
+              foto.mimetype === "image/webp"
+            )
           )
             return res.status(400).json({ error: "Solo archivos PNG y JPG" });
         }

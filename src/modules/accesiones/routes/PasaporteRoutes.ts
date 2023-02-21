@@ -13,7 +13,7 @@ export class PasaporteRoutes implements IController {
   }
 
   private addRoutes(): void {
-    const updload = multer().array("fotos", 5);
+    const updload = multer().array("fotos[]", 5);
 
     this.router.post(
       "/pasaporte",
