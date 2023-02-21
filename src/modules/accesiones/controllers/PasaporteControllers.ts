@@ -373,13 +373,11 @@ export class PasaporteController {
             model: NombreLocal,
             attributes: ["nombreLocalId", "nombreLocalNombre"],
             where: [nombreLocalId ? { nombreLocalId: nombreLocalId } : {}],
-            required: false,
             include: [
               {
                 model: Subespecie,
                 attributes: ["subespecieId", "subespecieNombre"],
                 where: [subespecieId ? { subespecieId: subespecieId } : {}],
-                required: false,
                 include: [
                   {
                     model: Especie,
@@ -391,7 +389,6 @@ export class PasaporteController {
                           }
                         : {},
                     ],
-                    required: false,
                     include: [
                       {
                         model: Genero,
@@ -403,7 +400,7 @@ export class PasaporteController {
                               }
                             : {},
                         ],
-                        required: false,
+
                         include: [
                           {
                             model: Familia,
@@ -415,7 +412,6 @@ export class PasaporteController {
                                   }
                                 : {},
                             ],
-                            required: false,
                           },
                         ],
                       },
