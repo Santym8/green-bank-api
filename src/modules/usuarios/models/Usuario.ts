@@ -52,7 +52,7 @@ Usuario.init(
       type: new DataTypes.TEXT(),
       allowNull: false,
     },
-    createdAt: DataTypes.DATEONLY,
+    createdAt: DataTypes.DATE,
   },
   {
     hooks: {

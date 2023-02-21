@@ -34,7 +34,7 @@ Protocolo.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    createdAt: { type: DataTypes.DATEONLY },
+    createdAt: { type: DataTypes.DATE },
   },
   {
     tableName: "Protocolo",

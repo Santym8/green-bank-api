@@ -31,16 +31,16 @@ Fechas.init(
       primaryKey: true,
     },
     fechaSiembra: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
     fechaFloracion: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
     fechaFructificacion: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
     fechaCosechas: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
   },
   {

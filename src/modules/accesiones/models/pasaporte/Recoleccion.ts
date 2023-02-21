@@ -39,7 +39,7 @@ Recoleccion.init(
       type: DataTypes.STRING(50),
     },
     recoleccionFecha: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
   },
   {

@@ -29,7 +29,7 @@ Accesion.init(
       primaryKey: true,
       allowNull: false,
     },
-    createdAt: DataTypes.DATEONLY,
+    createdAt: DataTypes.DATE,
   },
   {
     tableName: "Accesion",
